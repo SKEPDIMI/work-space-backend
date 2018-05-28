@@ -2,13 +2,14 @@ const path = require('path');
 const url = require('url');
 const handlers = require('./lib/handlers');
 const helpers = require('./lib/helpers');
-const _data = require('./lib/_data');
+const mongoose = require('mongoose');
 const express = require('express');
 const {StringDecoder} = require('string_decoder');
 
 var app = express();
 app.use(express.json())
 
+var connection = mongoose.connect(`mongodb://${process.env.DBusername}:${process.env.DBpassword}@ds235860.mlab.com:35860/work-space`)
 var PORT = process.env.port || 5000;
 
 const routes = {
