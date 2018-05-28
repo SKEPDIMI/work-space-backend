@@ -30,14 +30,13 @@ app.all('*', ( req, res ) => {
 
     req.on('data', data=>{
       buffer += decoder.write(data)
-    })
+    });
     req.on('end', () => {
       buffer += decoder.end();
-      
         let data = {
           pathname: pathname,
           method: method.toLowerCase(),
-          headers: req.headers,
+          headers: req.headers || {},
           body: helpers.jsonToObj(buffer)
         };
 
@@ -51,7 +50,7 @@ app.all('*', ( req, res ) => {
           }
         })
 
-    })
+    });
   } else {
     res.status(400);
     res.json({
