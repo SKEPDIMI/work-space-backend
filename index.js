@@ -7,7 +7,6 @@ const express = require('express');
 const {StringDecoder} = require('string_decoder');
 
 var app = express();
-app.use(express.json())
 
 var connection = mongoose.connect(`mongodb://${process.env.DBusername}:${process.env.DBpassword}@ds235860.mlab.com:35860/work-space`)
 var PORT = process.env.port || 5000;
@@ -25,12 +24,10 @@ app.all('*', ( req, res ) => {
 
   let handler = routes[pathname] ? routes[pathname] : handlers.notfound;
 
-  if (handler) {
     let buffer = '';
     let decoder = new StringDecoder('utf8');
-    
-    req.on('data', data=>{
-      console.log('here')
+
+    req.on('data', data => {
       buffer += decoder.write(data)
     });
     req.on('end', () => {
@@ -41,7 +38,6 @@ app.all('*', ( req, res ) => {
           headers: req.headers || {},
           body: helpers.jsonToObj(buffer)
         };
-        console.log('calling in ' + handler)
         handler(data, ( statusCode, payload, contentType ) => {
           res.status(statusCode);
           res.contentType(contentType);
@@ -55,13 +51,7 @@ app.all('*', ( req, res ) => {
     });
     req.on('error', (err)=>{
       throw err
-    })
-  } else {
-    res.status(400);
-    res.json({
-      message: 'Unknown path'
-    })
-  }
+    });
 });
 
 app.listen(PORT, ()=>console.log('port: '+PORT))
