@@ -6,5 +6,4 @@ pipelines:
     - step:
         script:
           - npm install
-          - npm test
           - git push https://heroku:d643d490-1861-4ee9-95eb-6027871514fd@git.heroku.com/workspace-api.git HEAD
