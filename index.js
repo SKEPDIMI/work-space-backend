@@ -5,6 +5,7 @@ const helpers = require('./lib/helpers');
 const mongoose = require('mongoose');
 const express = require('express');
 const {StringDecoder} = require('string_decoder');
+var morgan = require('morgan')
 
 var app = express();
 
@@ -17,7 +18,7 @@ const routes = {
   '/api/spaces' : handlers.spaces
 };
 
-app.all('*', ( req, res ) => {
+app.all('/*', ( req, res ) => {
   let pathQuery = url.parse(req.url, true);
   let pathname = pathQuery.pathname;
   let method = req.method;
@@ -49,9 +50,8 @@ app.all('*', ( req, res ) => {
         })
 
     });
-    req.on('error', (err)=>{
-      throw err
-    });
 });
+
+morgan('tiny');
 
 app.listen(PORT, ()=>console.log('port: '+PORT))
