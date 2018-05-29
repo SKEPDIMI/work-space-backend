@@ -28,8 +28,9 @@ app.all('*', ( req, res ) => {
   if (handler) {
     let buffer = '';
     let decoder = new StringDecoder('utf8');
-
+    
     req.on('data', data=>{
+      console.log('here')
       buffer += decoder.write(data)
     });
     req.on('end', () => {
@@ -40,7 +41,7 @@ app.all('*', ( req, res ) => {
           headers: req.headers || {},
           body: helpers.jsonToObj(buffer)
         };
-
+        console.log('calling in ' + handler)
         handler(data, ( statusCode, payload, contentType ) => {
           res.status(statusCode);
           res.contentType(contentType);
@@ -52,6 +53,9 @@ app.all('*', ( req, res ) => {
         })
 
     });
+    req.on('error', (err)=>{
+      throw err
+    })
   } else {
     res.status(400);
     res.json({
