@@ -2,6 +2,7 @@ const path = require('path');
 const url = require('url');
 const handlers = require('./lib/handlers');
 const helpers = require('./lib/helpers');
+const config = require('./config');
 const mongoose = require('mongoose');
 const express = require('express');
 const {StringDecoder} = require('string_decoder');
@@ -9,13 +10,14 @@ var morgan = require('morgan')
 
 var app = express();
 
-var connection = mongoose.connect(`mongodb://${process.env.DBusername}:${process.env.DBpassword}@ds235860.mlab.com:35860/work-space`)
+var connection = mongoose.connect(`mongodb://${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`)
 var PORT = process.env.PORT || 5000;
 
 const routes = {
   '/api/users' : handlers.users,
   '/api/user' : handlers.user,
-  '/api/spaces' : handlers.spaces
+  '/api/spaces' : handlers.spaces,
+  '/api/auth' : handlers.auth
 };
 
 app.all('/*', ( req, res ) => {
