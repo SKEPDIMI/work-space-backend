@@ -9,7 +9,7 @@ const {StringDecoder} = require('string_decoder');
 var app = express();
 
 var connection = mongoose.connect(`mongodb://${process.env.DBusername}:${process.env.DBpassword}@ds235860.mlab.com:35860/work-space`)
-var PORT = process.env.port || 5000;
+var PORT = process.env.PORT || 5000;
 
 const routes = {
   '/api/users' : handlers.users,
