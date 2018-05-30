@@ -1,5 +1,6 @@
 const path = require('path');
 const url = require('url');
+const cors = require('cors');
 const handlers = require('./lib/handlers');
 const helpers = require('./lib/helpers');
 const config = require('./config');
