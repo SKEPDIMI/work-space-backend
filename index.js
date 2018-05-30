@@ -13,11 +13,7 @@ var app = express();
 var connection = mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`)
 var PORT = process.env.PORT || 5000;
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.options('*', cors())
 
 const routes = {
   '/api/users' : handlers.users,
