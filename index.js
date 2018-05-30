@@ -14,6 +14,7 @@ var app = express();
 var connection = mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`)
 var PORT = process.env.PORT || 5000;
 
+app.use(cors())
 app.options('*', cors())
 
 const routes = {
