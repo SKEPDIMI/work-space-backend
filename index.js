@@ -28,19 +28,7 @@ const routes = {
   '/api/auth' : handlers.auth
 };
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    console.log(req.body.internalUserID) // YAY, IT'S POPULATED
-    cb(null, 'listing-pics/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-});
-
-var upload = multer({ storage: storage });
-
-app.all('/*', upload.any(), ( req, res ) => {
+app.all('*', ( req, res ) => {
   let pathQuery = url.parse(req.url, true);
   let pathname = pathQuery.pathname;
   let method = req.method;
@@ -53,12 +41,6 @@ app.all('/*', upload.any(), ( req, res ) => {
             headers: req.headers || {},
             body: req.body
           };
-
-        /**
-         * @param {number} statusCode
-         * @param {Object} payload
-         * @param {string} contentType
-         */
           handler(data, ( statusCode, payload, contentType ) => {
             res.status(statusCode);
             res.contentType(contentType);
