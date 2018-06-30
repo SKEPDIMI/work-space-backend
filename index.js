@@ -49,6 +49,9 @@ app.all('*', upload.array('avatar'), ( req, res ) => { // All requests are passe
     query: query || []
   };
 
+  console.log(query)
+  console.log(data)
+
   handler(data, ( statusCode = 418, payload = {}, contentType = 'text/plain' ) => { // And the response from these handlers is sent back
     res.status(statusCode);
     res.contentType(contentType);
