@@ -2,15 +2,15 @@ const path = require('path');
 const url = require('url');
 const cors = require('cors');
 const handlers = require('./lib/handlers');
-const helpers = require('./lib/helpers');
 const config = require('./config');
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan')
-const bodyParser = require('body-parser');
-var multer  = require('multer');
+const multer  = require('multer');
 
 var app = express();
+
+mongoose.set('debug', true);
 
 mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`);
 
@@ -48,9 +48,7 @@ app.all('*', upload.array('avatar'), ( req, res ) => { // All requests are passe
     files: req.files || {},
     query: query || []
   };
-
-  console.log(query)
-
+  
   handler(data, ( statusCode = 418, payload = {}, contentType = 'text/plain' ) => { // And the response from these handlers is sent back
     res.status(statusCode);
     res.contentType(contentType);
@@ -66,4 +64,4 @@ app.all('*', upload.array('avatar'), ( req, res ) => { // All requests are passe
 morgan('tiny');
 
 var PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=>console.log('port: '+PORT))
+app.listen(PORT, ()=>('port: '+PORT))
