@@ -10,8 +10,6 @@ const multer  = require('multer');
 
 var app = express();
 
-mongoose.set('debug', true);
-
 mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`);
 
 app.use(express.json());
