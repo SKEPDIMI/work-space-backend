@@ -24,8 +24,8 @@ const upload = multer ({
 
 const routes = {
   '/api/users' : handlers.users,
-  '/api/user' : handlers.user,
   '/api/spaces' : handlers.spaces,
+  '/api/posts' : handlers.posts,
   '/api/auth' : handlers.auth,
   '/api/user/image' : handlers.userImage
 };
