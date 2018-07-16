@@ -62,4 +62,4 @@ app.all('*', upload.array('avatar'), ( req, res ) => { // All requests are passe
 morgan('tiny');
 
 var PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=>('port: '+PORT))
+app.listen(PORT, () => console.log('WORKSPACE API is listening at port ' + PORT))
