@@ -7,12 +7,14 @@ const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan')
 const multer  = require('multer');
+var cookieParser = require('cookie-parser');
 
 var app = express();
 
 mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`);
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors())
 app.options('*', cors())
 
@@ -27,8 +29,14 @@ const routes = {
   '/api/spaces' : handlers.spaces,
   '/api/posts' : handlers.posts,
   '/api/auth' : handlers.auth,
-  '/api/user/image' : handlers.userImage
+  '/api/user/image' : handlers.userImage,
+  '/api/verifyEmail' : handlers.emailVerification
 };
+
+app.get('/cookie',function(req, res){
+  var cookie_name = 'fennamfd';
+  res.cookie(cookie_name , 'cookie_value').send('Cookie is set');
+});
 
 app.all('*', upload.array('avatar'), ( req, res ) => { // All requests are passed onto handlers
   let pathQuery = url.parse(req.url, true);
