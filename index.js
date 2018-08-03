@@ -9,7 +9,7 @@ const morgan = require('morgan')
 const multer  = require('multer');
 var cookieParser = require('cookie-parser');
 
-console.log("Initializing app...");
+console.log("Initializing API >>>");
 
 require('./lib/services/safePopulate')([
   'email',
