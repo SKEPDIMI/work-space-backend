@@ -9,6 +9,13 @@ const morgan = require('morgan')
 const multer  = require('multer');
 var cookieParser = require('cookie-parser');
 
+console.log("Initializing app...");
+
+require('./lib/services/safePopulate')([
+  'email',
+  'password'
+]);
+
 var app = express();
 
 mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`);
