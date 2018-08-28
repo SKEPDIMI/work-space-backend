@@ -15,7 +15,6 @@ require('./lib/services/safePopulate')([
   'email',
   'password'
 ]);
-
 var app = express();
 
 mongoose.connect(config.DBHost);
@@ -25,6 +24,8 @@ app.use(cookieParser());
 app.use(cors())
 app.options('*', cors())
 
+require('./lib/routes')(app);
+
 app.disable( 'x-powered-by' );
 
 const upload = multer ({
@@ -32,10 +33,10 @@ const upload = multer ({
 });
 
 const routes = {
-  '/api/users' : handlers.users,
+  // '/api/users' : handlers.users,
   '/api/spaces' : handlers.spaces,
   '/api/posts' : handlers.posts,
-  '/api/auth' : handlers.auth,
+  // '/api/auth' : handlers.auth,
   '/api/user/image' : handlers.userImage,
   '/api/verifyEmail' : handlers.emailVerification
 };
