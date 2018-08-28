@@ -16,7 +16,7 @@ describe('POST users', () => {
         password: 'fjdbb9G74u2hc'
       }
   
-      chaiRequest.post('/api/users', user, (err, res) => {
+      chaiRequest.post('/users', user, (err, res) => {
         res.should.have.status(422)
         done()
       });
@@ -30,7 +30,7 @@ describe('POST users', () => {
         password: 'fjdbb9G74u2hc'
       }
   
-      chaiRequest.post('/api/users', user, (err, res) => {
+      chaiRequest.post('/users', user, (err, res) => {
         res.should.have.status(422)
         done()
       });
@@ -44,7 +44,7 @@ describe('POST users', () => {
         password: ''
       }
   
-      chaiRequest.post('/api/users', user, (err, res) => {
+      chaiRequest.post('/users', user, (err, res) => {
         res.should.have.status(422)
         done()
       });

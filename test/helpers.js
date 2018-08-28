@@ -20,7 +20,7 @@ helpers.chaiRequest.get = (path, data, cb) => {
 }
 helpers.chaiRequest.post = (path, data, cb) => {
   chai.request(server)
-    .post('/api/users')
+    .post(path)
     .send(data)
     .end((err, res) => {
       cb(err, res)
