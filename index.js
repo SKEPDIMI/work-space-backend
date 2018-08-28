@@ -18,7 +18,7 @@ require('./lib/services/safePopulate')([
 
 var app = express();
 
-mongoose.connect(`mongodb:\/\/${config.DBusername}:${config.DBpassword}@ds235860.mlab.com:35860/work-space`);
+mongoose.connect(config.DBHost);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -78,3 +78,5 @@ morgan('tiny');
 
 var PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log('WORKSPACE API is listening at port ' + PORT))
+
+module.exports = app; // for testing
