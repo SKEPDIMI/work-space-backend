@@ -8,12 +8,45 @@ const jwt = require('jsonwebtoken');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
+const User = require('../lib/schemas/user');
+const Space = require('../lib/schemas/space');
 const should = chai.should();
 
 chai.use(chaiHttp);
 
 helpers.signAuthToken = (id) => {
   return jwt.sign({ id }, config.jwtKey, {expiresIn: 86400});
+}
+
+helpers.sampleData = {}
+
+helpers.sampleData.user = {
+  username: 'john_doe',
+  email: 'foo@bar.com',
+  password: 'Hello1234!'
+}
+helpers.sampleData.spaces = [
+  { title: 'Node.js', description: 'This is a node.js space', owner: null },
+  { title: 'Ruby on Rails', description: 'This is a ROR space', owner: null }
+]
+
+helpers.generateSample = (m) => { // will generate sample data to test
+  switch(m.toLowerCase()) {
+    case "spaces":
+      return async () => { // Clear the database and create sample Spaces
+        await User.remove({});
+        await Space.remove({});
+
+        user = await User.create(helpers.sampleData.user);
+    
+        helpers.sampleData.spaces.forEach(async spaceData => {
+          await Space.create({...spaceData, owner: user._id})
+          .then(space => true)
+          .catch(err => { throw err });
+        });
+      }
+      break;
+  }
 }
 
 helpers.chaiRequest = {}
