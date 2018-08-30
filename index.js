@@ -38,7 +38,7 @@ const routes = {
   '/api/posts' : handlers.posts,
   // '/api/auth' : handlers.auth,
   '/api/user/image' : handlers.userImage,
-  '/api/verifyEmail' : handlers.emailVerification
+  // '/api/verifyEmail' : handlers.emailVerification
 };
 
 app.get('/cookie',function(req, res){
