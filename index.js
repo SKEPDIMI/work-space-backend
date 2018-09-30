@@ -26,10 +26,6 @@ app.use((req, res, next) => {
 });
 app.use(upload.any());
 
-require('./lib/services/safePopulate')([
-  'email',
-  'password'
-]);
 require('./lib/routes')(app);
 
 app.disable('x-powered-by');
