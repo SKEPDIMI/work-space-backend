@@ -1,6 +1,5 @@
 const url = require('url');
 const cors = require('cors');
-const config = require('./config');
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
@@ -8,7 +7,11 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
-mongoose.connect(config.DBHost);
+let { DBHost } = process.env;
+
+if (!DBHost) throw 'MISSING DBHOST ENV VARIABLE';
+
+mongoose.connect(DBHost);
 
 var app = express();
 

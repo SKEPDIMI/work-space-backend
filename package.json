@@ -4,7 +4,7 @@
   "description": "The back end api for workspace",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "dev": "jwtsalt=10 jwtKey=secretjwtkey DBHost=mongodb://localhost/work-space nodemon",
     "test": "mocha test/* --timeout 10000"
   },
   "author": "JohnCdf",
