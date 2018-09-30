@@ -12,7 +12,7 @@ describe('GET Spaces', () => {
 
   describe('GET /spaces', () => {
     it('should get all spaces', done => {
-      chaiRequest.get('/spaces', {}, (err, res) => {
+      chaiRequest.get('/api/spaces', {}, (err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
         res.body.length.should.equal(helpers.sampleData.spaces.length);
@@ -22,7 +22,7 @@ describe('GET Spaces', () => {
   });
   describe('GET /spaces/:id', () => {
     it('should get space data', done => {
-      chaiRequest.get(`/spaces/${GlobalSpaceData.id}`, {}, (err, res) => {
+      chaiRequest.get(`/api/spaces/${GlobalSpaceData.id}`, {}, (err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body._id.should.equal(GlobalSpaceData.id);
@@ -36,7 +36,7 @@ describe('GET Spaces', () => {
         let query = querystring.stringify({ population: 'owner' });
 
         chaiRequest.get(
-          `/spaces/${GlobalSpaceData.id}?${query}`,
+          `/api/spaces/${GlobalSpaceData.id}?${query}`,
           {},
           (err, res) => {
             res.should.have.status(200);
@@ -52,7 +52,7 @@ describe('GET Spaces', () => {
         let query = querystring.stringify({ population: 'users' });
 
         chaiRequest.get(
-          `/spaces/${GlobalSpaceData.id}?${query}`,
+          `/api/spaces/${GlobalSpaceData.id}?${query}`,
           {},
           (err, res) => {
             res.should.have.status(200);

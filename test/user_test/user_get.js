@@ -10,7 +10,7 @@ describe('GET Users', () => {
 
   describe('GET /users', () => {
     it('should get all users', done => {
-      chaiRequest.get('/users', {}, (err, res) => {
+      chaiRequest.get('/api/users', {}, (err, res) => {
         res.should.have.status(200)
         res.body.should.be.a('array')
         done()
@@ -25,7 +25,7 @@ describe('GET Users', () => {
           if (err) {
             throw err
           }
-          chaiRequest.get(`/users/${user.id}`, {}, (err, res) => {
+          chaiRequest.get(`/api/users/${user.id}`, {}, (err, res) => {
             res.should.have.status(200)
             res.body.should.be.a('object')
             res.body.username.should.equal(user.username)
@@ -37,7 +37,7 @@ describe('GET Users', () => {
 
     describe('when user does not exist', () => {
       it('should return a 404 status code', done => {
-        chaiRequest.get('/users/1', {}, (err, res) => {
+        chaiRequest.get('/api/users/1', {}, (err, res) => {
           res.should.have.status(404)
           res.body.should.be.a('object')
           done()

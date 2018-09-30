@@ -16,7 +16,7 @@ describe('POST users', () => {
         password: 'fjdbb9G74u2hc'
       }
   
-      chaiRequest.post('/users', { body: user }, (err, res) => {
+      chaiRequest.post('/api/users', { body: user }, (err, res) => {
         res.should.have.status(422)
         done()
       });
@@ -30,7 +30,7 @@ describe('POST users', () => {
         password: 'fjdbb9G74u2hc'
       }
   
-      chaiRequest.post('/users', { body: user }, (err, res) => {
+      chaiRequest.post('/api/users', { body: user }, (err, res) => {
         res.should.have.status(422)
         done()
       });
@@ -44,7 +44,7 @@ describe('POST users', () => {
         password: ''
       }
   
-      chaiRequest.post('/users', user, (err, res) => {
+      chaiRequest.post('/api/users', user, (err, res) => {
         res.should.have.status(422)
         done()
       });
@@ -58,7 +58,7 @@ describe('POST users', () => {
         password: '1234Hello!'
       }
       User.create(userData, (err) => {
-        chaiRequest.post('/users', { body: userData }, (err, res) => {
+        chaiRequest.post('/api/users', { body: userData }, (err, res) => {
           res.should.have.status(409)
           done()
         });
@@ -72,7 +72,7 @@ describe('POST users', () => {
         username: '<script src="xss.com"></script>',
         password: '1234Hello!'
       }
-      chaiRequest.post('/users', user, (err, res) => {
+      chaiRequest.post('/api/users', user, (err, res) => {
         res.should.have.status(422)
         done()
       });
@@ -85,7 +85,7 @@ describe('POST users', () => {
       password: '1234Hello!'
     }
     it('should create user', done => {
-      chaiRequest.post('/users', { body: userData }, (err, res) => {
+      chaiRequest.post('/api/users', { body: userData }, (err, res) => {
         res.should.have.status(200)
         res.body.auth_token.should.be.a('string')
         User.findOne({}, (err, user) => {

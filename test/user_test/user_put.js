@@ -1,7 +1,7 @@
 const User = require('../../lib/schemas/user');
 const { chaiRequest } = require('../helpers');
 
-describe('PUT /users/:id', () => {
+describe('PUT /users', () => {
   GlobalUserData = null // will store the user to be tested on
   const authHeaders = () => {
     return {
@@ -29,7 +29,7 @@ describe('PUT /users/:id', () => {
 
   describe('When no authorization is provided', () => {
     it('should respond with 401', done => {
-      chaiRequest.put(`/users/${GlobalUserData.id}`, { body: { username: '' } }, (err, res) => {
+      chaiRequest.put(`/api/users`, { body: { username: '' } }, (err, res) => {
         res.should.have.status(401);
         done();
       });
@@ -39,7 +39,7 @@ describe('PUT /users/:id', () => {
   describe('When bio has script tags', () => {
     it('should return status code 422', done => {
       bio = '<script="xss.com">This is bogus</script>'
-      chaiRequest.put(`/users/${GlobalUserData.id}`, { body: {bio}, headers: authHeaders() }, (err, res) => {
+      chaiRequest.put(`/api/users`, { body: {bio}, headers: authHeaders() }, (err, res) => {
         res.should.have.status(422);
         done();
       });
@@ -48,7 +48,7 @@ describe('PUT /users/:id', () => {
   describe('When username has script tags', () => {
     it('should return status code 422', done => {
       username = '<script="xss.com">This is bogus</script>'
-      chaiRequest.put(`/users/${GlobalUserData.id}`, { body: {username}, headers: authHeaders() }, (err, res) => {
+      chaiRequest.put(`/api/users`, { body: {username}, headers: authHeaders() }, (err, res) => {
         res.should.have.status(422);
         done();
       });
@@ -57,7 +57,7 @@ describe('PUT /users/:id', () => {
   describe('When email is invalid', () => {
     it('should return status code 422', done => {
       email = 'bad email'
-      chaiRequest.put(`/users/${GlobalUserData.id}`, { body: {email}, headers: authHeaders() }, (err, res) => {
+      chaiRequest.put(`/api/users`, { body: {email}, headers: authHeaders() }, (err, res) => {
         res.should.have.status(422);
         done();
       });
@@ -66,7 +66,7 @@ describe('PUT /users/:id', () => {
   describe('When password is invalid', () => {
     it('should return status code 422', done => {
       password = 'badpass'
-      chaiRequest.put(`/users/${GlobalUserData.id}`, { body: {password}, headers: authHeaders() }, (err, res) => {
+      chaiRequest.put(`/api/users`, { body: {password}, headers: authHeaders() }, (err, res) => {
         res.should.have.status(422);
         done();
       });
